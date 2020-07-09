@@ -174,6 +174,26 @@ public:
             b=b->next;
         }
     }
+        
+    void swapPair()
+    {
+        if(!this->head || !this->head->next) return;
+        node *p=this->head,*q=this->head->next,*r=NULL;
+        this->head=q;
+        while(p && q)
+        {
+            p->next=q->next;
+            q->next=p;
+            if(r)
+                r->next=q;
+            r=p;
+            
+            swap(p,q);
+            if(!p->next->next || !q->next->next)    return;
+            p=p->next->next;
+            q=q->next->next;
+        }
+    }
 };
 
 int main()
