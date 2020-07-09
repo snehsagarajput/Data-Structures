@@ -194,6 +194,22 @@ public:
             q=q->next->next;
         }
     }
+        
+    void evenOddArrangement()
+    {
+        if(!this->head || !this->head->next) return;
+        node *p=this->head, *q=this->head->next;
+        node *q_start=q;
+        while(p->next && q->next)
+        {
+            p->next=p->next->next;
+            if(q->next) //odd nodes
+                q->next=q->next->next; //no need of declaring any last node as NULL it wouble be already there
+            p=p->next;
+            q=q->next;
+        }
+        p->next=q_start; //joining odd and even
+    }
 };
 
 int main()
@@ -222,3 +238,4 @@ int main()
     cout<<endl<<endl;
     return 0;
 }
+ 
