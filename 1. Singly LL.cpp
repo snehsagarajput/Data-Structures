@@ -99,6 +99,10 @@ public:
             node *t=this->head;
             while(t->next)
             {
+                    if(index<this->size)
+                    index--;
+                    if(index==0)
+                        break;
                 t=t->next;
             }
             p->next=t->next;
