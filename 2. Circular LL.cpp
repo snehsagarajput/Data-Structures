@@ -101,6 +101,10 @@ public:
             node *t=this->head;
             do
             {
+                    if(index<this->size)
+                    index--;
+                    if(index==0)
+                        break;
                 t=t->next;
             }
             while(t->next!=this->head);
