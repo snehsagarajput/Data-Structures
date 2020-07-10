@@ -126,6 +126,21 @@ public:
 
 };
 
+bool isBalanced(string s)//paranthesis match
+{
+    Stack *p=new Stack();
+    for(auto i:s)
+    {
+        if(i=='(' || i=='{' || i=='[')  p->push(i);
+        else if(i==')' || i=='}' || i==']')
+        {
+            if(p->isEmpty())    return false;
+            int x=i-p->pop();
+            if(x<1 || x>2)  return false;
+        }
+    }
+    return p->isEmpty()?true:false;
+
 int main()
 {
     Stack *s=new Stack();
