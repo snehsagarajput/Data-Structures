@@ -135,16 +135,27 @@ public:
         }
         cout<<nl;
     }
+
+    void maxHeight()
+    {
+        cout<<"Max Height : "<<maxHeightUtils(this->root)-1<<nl;;
+    }
+
+    int maxHeightUtils(Node *p)
+    {
+        if(!p)  return 0;
+        int lHeight = maxHeightUtils(p->left);
+        int rHeight = maxHeightUtils(p->right);
+        return lHeight > rHeight ? lHeight+1 : rHeight+1;
+    }
 };
 
 int main()
 {
     Tree *p=new Tree();
     p->create();
-    p->traversal();
-    p->traversal();
-    p->traversal();
-    p->traversal();
+    p->maxHeight();
+
     cout<<endl<<endl;
     return 0;
 }
