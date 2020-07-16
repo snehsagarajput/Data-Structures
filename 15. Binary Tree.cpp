@@ -171,6 +171,21 @@ public:
         int rHeight = maxHeightUtils(p->right);
         return lHeight > rHeight ? lHeight+1 : rHeight+1;
     }
+	
+
+     bool childrenSumUtils(Node *p)
+    {
+        if(!p)  return true;
+        if(!p->right && !p->left)   return true;
+        int sum=0;
+        if(p->left)    sum+=p->left->key;
+        if(p->right)    sum+=p->right->key;
+        return (p->key==sum) && childrenSumUtils(p->left) && childrenSumUtils(p->right);
+    }
+    bool childrenSum()
+    {
+        return childrenSumUtils(this->root);
+    }
 };
 
 int main()
