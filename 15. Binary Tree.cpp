@@ -136,6 +136,29 @@ public:
         cout<<nl;
     }
 
+    int countNodes()
+    {
+        queue <Node*> a;
+        int ans=0;
+        if(!root)   return ans;
+        a.push(root);
+        while(!a.empty())
+        {
+            Node *p=a.front();
+            a.pop();
+            ++ans;
+            if(p->left)
+            {
+                a.push(p->left);
+            }
+            if(p->right)
+            {
+                a.push(p->right);
+            }
+        }
+        return ans;
+    }
+    
     void maxHeight()
     {
         cout<<"Max Height : "<<maxHeightUtils(this->root)-1<<nl;;
@@ -154,7 +177,7 @@ int main()
 {
     Tree *p=new Tree();
     p->create();
-    p->maxHeight();
+    cout<<"Count of Nodes : "<<p->countNodes();
 
     cout<<endl<<endl;
     return 0;
