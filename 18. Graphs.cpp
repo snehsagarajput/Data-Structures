@@ -38,6 +38,7 @@ public:
             }
             cout<<nl;
         }
+        cout<<nl;
     }
 
 	void BFS(int init=0)
@@ -142,25 +143,95 @@ public:
             return false;
         }
     }
+
+    void shortestPath(int src, int dest)
+    {
+        if(src==dest)
+        {
+            cout<<"Path is : "<<src<<"-"<<src<<nl;
+            cout<<"Shortest Distance : "<<0<<nl;
+            return;
+        }
+        bool *visited=new bool[v];
+        int *path=new int[v];
+        memset(path, -1,sizeof(int)*v);
+        queue<pair<int,int>> q;
+        q.push(make_pair(src,0));
+        visited[src]=true;
+        while(!q.empty())
+        {
+            int s=q.size();
+            for(int i=0;i<s;++i)
+            {
+                int node=q.front().first;
+                int dist=q.front().second;
+                q.pop();
+                for(auto j : list[node])
+                {
+                    
+                    if(!visited[j])
+                    {
+                        visited[j] = true;
+                        q.push(make_pair(j,dist+1));
+                        path[j]=node;
+                    }
+                    if(dest==j)
+                    {
+                        cout<<"Path is : ";
+                        int rider=dest;
+                        vector<int> sp;
+                        while(path[rider]!=-1)
+                        {
+                            sp.push_back(rider);
+                            rider=path[rider];
+                        }
+                        sp.push_back(src);
+                        for_each(sp.rbegin(),sp.rend(),[](int a){cout<<a<<" ";});
+                        cout<<nl<<"Shortest Distance : "<<dist+1<<nl;
+                        return;
+                    }
+                }
+            }
+        }
+        //if reach here they are not connected
+        cout<<-1<<nl;
+    }
 };
 
 
 int main()
 {
-    int vertices=6;
+    int vertices=11;
     Graph *p=new Graph(vertices,'d');
     p->addVertice(0,1);
+    p->addVertice(0,2);
+    p->addVertice(1,1);
+    p->addVertice(1,8);
     p->addVertice(1,2);
     p->addVertice(2,3);
-    p->addVertice(1,4);
+    p->addVertice(2,7);
+    p->addVertice(2,4);
+    p->addVertice(3,2);
+    p->addVertice(3,9);
+    p->addVertice(4,3);
     p->addVertice(4,5);
-    p->addVertice(5,0);
-    
+    p->addVertice(5,4);
+    p->addVertice(5,10);
+    p->addVertice(7,3);
+    p->addVertice(7,7);
+    p->addVertice(8,7);
+    p->addVertice(9,6);
+    p->addVertice(10,10);
+    p->addVertice(2,2);
+    p->addVertice(8,8);
+    p->addVertice(1,9);
+
     p->display();
 
-	p->DFS();
-    
-    cout<<nl<<p->isCycle()<<nl;
+	p->BFS(1);
+
+    p->shortestPath(2,2);
+
     
     return 0;
 }
