@@ -49,7 +49,7 @@ int solution_dp(int *w, int *v,int c, int n) //dynamic programming
     {
         loop(j,1,c+1)
         {
-            if(w[i-1] <= c)
+            if(w[i-1] <= j)
             {
                 dp[i][j] = max(v[i-1]+dp[i-1][j-w[i-1]], dp[i-1][j]);
             }
