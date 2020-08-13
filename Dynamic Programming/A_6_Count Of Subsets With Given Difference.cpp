@@ -21,8 +21,15 @@ using namespace std;
 
 int solution(int *arr, int summ, int n) //recursive
 {
-    if(summ==0) return 1;
-    if(n==0) return 0;
+    if(n==0)
+    {
+        if(summ==0)
+            return 1; //for leading zeros
+        else
+        {
+            return 0;
+        }
+    }
     if(arr[n-1] <= summ)
     {
         return solution(arr, summ-arr[n-1], n-1) + solution(arr, summ, n-1);
@@ -38,7 +45,13 @@ int solution_dp(int *arr, int summ, int n) //dynamic programming
     
     int dp[n+1][summ+1];
     loop(i,1,summ+1)   dp[0][i]=0;
-    loop(i,0,n+1)   dp[i][0]=1;
+    
+    int c=0;
+    loop(i,0,n+1)
+    {
+        if(!arr[i]) ++c;
+        dp[i][0]=1<<c; //for leading zeros
+    }
 
     loop(i,1,n+1)
     {
