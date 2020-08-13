@@ -1,23 +1,3 @@
-/*
-
-
-Given an array arr[] of length N and an integer X, the task is to find the number of subsets with sum equal to X using recursion.
-
-Examples:
-
-Input: arr[] = {2, 3, 5, 6, 8, 10}, X = 10
-Output: 3
-Explanation:
-All possible subsets with sum 10 are {2, 3, 5}, {2, 8}, {10}
-
-Input: arr[] = {1, 2, 3, 4, 5}, X = 7
-Output: 3
-Explanation:
-All possible subsets with sum 7 are {2, 5}, {3, 4}, {1, 2, 4}
-
-
-*/
-
 #include <bits/stdc++.h>
 using namespace std;
 #define nl "\n"
@@ -41,8 +21,16 @@ using namespace std;
 
 int solution(int *arr, int summ, int n) //recursive
 {
-    if(summ==0) return 1;
-    if(n==0) return 0;
+    if(n==0)
+    {
+        if(summ==0)
+            return 1; //for leading zeros
+        else
+        {
+            return 0;
+        }
+        
+    }
     if(arr[n-1] <= summ)
     {
         return solution(arr, summ-arr[n-1], n-1) + solution(arr, summ, n-1);
@@ -57,8 +45,13 @@ int solution_dp(int *arr, int summ, int n) //dynamic programming
 {
     
     int dp[n+1][summ+1];
-    loop(i,1,summ+1)   dp[0][i]=0;
-    loop(i,0,n+1)   dp[i][0]=1;
+    loop(i,0,summ+1)   dp[0][i]=0;
+    int c=0;
+    loop(i,0,n+1)
+    {
+        if(!arr[i]) ++c;
+        dp[i][0]=1<<c; //for leading zeros
+    }
 
     loop(i,1,n+1)
     {
